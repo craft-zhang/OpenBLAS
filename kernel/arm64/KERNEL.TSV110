@@ -106,7 +106,7 @@ DGEMVTKERNEL = gemv_t.S
 CGEMVTKERNEL = zgemv_t.S
 ZGEMVTKERNEL = zgemv_t.S
 
-SGEMMKERNEL    =  sgemm_kernel_$(SGEMM_UNROLL_M)x$(SGEMM_UNROLL_N).S
+SGEMMKERNEL    =  sgemm_kernel_$(SGEMM_UNROLL_M)x$(SGEMM_UNROLL_N)_tsv110.S
 STRMMKERNEL    =  strmm_kernel_$(SGEMM_UNROLL_M)x$(SGEMM_UNROLL_N).S
 ifneq ($(SGEMM_UNROLL_M), $(SGEMM_UNROLL_N))
 ifeq ($(SGEMM_UNROLL_M), 16)
@@ -122,16 +122,9 @@ endif
 SGEMMINCOPYOBJ =  sgemm_incopy$(TSUFFIX).$(SUFFIX)
 SGEMMITCOPYOBJ =  sgemm_itcopy$(TSUFFIX).$(SUFFIX)
 endif
-ifeq ($(SGEMM_UNROLL_N), 16)
+
 SGEMMOTCOPY    =  sgemm_tcopy_$(SGEMM_UNROLL_N).S
-else
-SGEMMOTCOPY    =  ../generic/gemm_tcopy_$(SGEMM_UNROLL_N).c
-endif
-ifeq ($(SGEMM_UNROLL_N), 4)
 SGEMMONCOPY    =  sgemm_ncopy_$(SGEMM_UNROLL_N).S
-else
-SGEMMONCOPY    =  ../generic/gemm_ncopy_$(SGEMM_UNROLL_N).c
-endif
 SGEMMONCOPYOBJ =  sgemm_oncopy$(TSUFFIX).$(SUFFIX)
 SGEMMOTCOPYOBJ =  sgemm_otcopy$(TSUFFIX).$(SUFFIX)
 
